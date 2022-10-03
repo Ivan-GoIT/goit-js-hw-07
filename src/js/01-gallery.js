@@ -1,11 +1,13 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-//import * as basicLightbox from "src/node_modules/basiclightbox/dist/basicLightbox.min.js";
 
 const galleryContainerEl = document.querySelector(".gallery");
+const backdropImg = basicLightbox.create(`<img >`);
 galleryContainerEl.innerHTML = createGalleryMarkup(galleryItems);
 
 galleryContainerEl.addEventListener("click", onGalleryImageClick);
+
+document.addEventListener("keydown", onEscKeyDownBackdropClose);
 
 function createGalleryMarkup(galleryItems) {
   return galleryItems
@@ -29,13 +31,16 @@ function onGalleryImageClick(event) {
     return;
   }
   event.preventDefault();
-  const targetImgEl = event.target;
-  const originalImgUrl = targetImgEl.dataset.source;
-  console.log(2);
 
-  //   const instance = basicLightbox.create(`
-  //     <img src="assets/images/image.png" width="800" height="600">
-  // `);
-
-  //instance.show();
+  const originalImgUrl = event.target.dataset.source;
+  backdropImg.element().querySelector("img").src = originalImgUrl;
+  backdropImg.show();
 }
+
+
+function onEscKeyDownBackdropClose(event) {
+    if (backdropImg.visible() && event.key === "Escape") {
+    backdropImg.close();
+  }
+  return;
+ }
