@@ -7,8 +7,6 @@ galleryContainerEl.innerHTML = createGalleryMarkup(galleryItems);
 
 galleryContainerEl.addEventListener("click", onGalleryImageClick);
 
-document.addEventListener("keydown", onEscKeyDownBackdropClose);
-
 function createGalleryMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -35,12 +33,15 @@ function onGalleryImageClick(event) {
   const originalImgUrl = event.target.dataset.source;
   backdropImg.element().querySelector("img").src = originalImgUrl;
   backdropImg.show();
+
+  document.addEventListener("keydown", onEscKeyDownBackdropClose);
 }
 
 
 function onEscKeyDownBackdropClose(event) {
-    if (backdropImg.visible() && event.key === "Escape") {
-    backdropImg.close();
-  }
-  return;
+    if (!(backdropImg.visible() && event.key === "Escape")) {
+      return;
+    }
+  backdropImg.close();
+  document.removeEventListener("keydown", onEscKeyDownBackdropClose);
  }
