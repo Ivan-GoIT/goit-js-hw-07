@@ -3,13 +3,18 @@ import { galleryItems } from "./gallery-items.js";
 
 const galleryContainerEl = document.querySelector(".gallery");
 const backdropImg = basicLightbox.create(`<img >`);
+
+
 galleryContainerEl.innerHTML = createGalleryMarkup(galleryItems);
+
+//addLaizyloadToImg();
 
 galleryContainerEl.addEventListener("click", onGalleryImageClick);
 
 function createGalleryMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
+      console.log(description);
       return `<div class="gallery__item">
   <a class="gallery__link" href='${original}'>
     <img
@@ -37,11 +42,22 @@ function onGalleryImageClick(event) {
   document.addEventListener("keydown", onEscKeyDownBackdropClose);
 }
 
-
 function onEscKeyDownBackdropClose(event) {
     if (!(backdropImg.visible() && event.key === "Escape")) {
       return;
     }
   backdropImg.close();
   document.removeEventListener("keydown", onEscKeyDownBackdropClose);
+}
+ 
+
+
+function addLaizyloadToImg(galleryContainerEl) {
+  //galleryContainerEl.querySelectorAll('img')
+  document
+    .querySelectorAll(".gallery__image")
+    .forEach((imgEl) => (imgEl.loading = "lazy"));
+    
+    
+
  }
