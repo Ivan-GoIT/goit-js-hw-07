@@ -1,6 +1,5 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-
 const galleryContainerEl = document.querySelector(".gallery");
 const backdropImg = basicLightbox.create(`<img >`);
 
@@ -17,9 +16,9 @@ function createGalleryMarkup(galleryItems) {
   <a class="gallery__link" href='${original}'>
     <img
       class="gallery__image"
-      src=${preview}
-      data-source=${original}
-      alt=${description}
+      src='${preview}'
+      data-source='${original}'
+      alt='${description}'
     />
   </a>
 </div>`;
@@ -54,9 +53,10 @@ function addLazyloadToImg(galleryContainerEl) {
   if ("loading" in HTMLImageElement.prototype) {
     lazyImages.forEach((imgEl) => {
       imgEl.loading = "lazy";
-      imgEl.src = imgEl.dataset.source;
+     // imgEl.src = imgEl.dataset.source;
     });
   } else {
+    console.log('!!!!!!!!!!!!');
     const lazyScript = document.createElement("script");
 
     lazyScript.src =
