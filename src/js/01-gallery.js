@@ -53,8 +53,9 @@ function addLazyloadToImg(galleryContainerEl) {
   if ("loading" in HTMLImageElement.prototype) {
     lazyImages.forEach((imgEl) => {
       imgEl.loading = "lazy";
-     // imgEl.src = imgEl.dataset.source;
     });
+    const lazyScript = document.createElement("script");
+
   } else {
     console.log('!!!!!!!!!!!!');
     const lazyScript = document.createElement("script");
