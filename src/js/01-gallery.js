@@ -47,7 +47,7 @@ function onEscKeyDownBackdropClose(event) {
   document.removeEventListener("keydown", onEscKeyDownBackdropClose);
 }
 
-function addLazyloadToImg(galleryContainerEl) {
+function addLazyloadToImg() {
   const lazyImages = document.querySelectorAll(".gallery__image");
   if ("loading" in HTMLImageElement.prototype) {
     lazyImages.forEach((imgEl) => {
