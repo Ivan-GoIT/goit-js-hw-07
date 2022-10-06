@@ -48,7 +48,6 @@ function onEscKeyDownBackdropClose(event) {
 }
 
 function addLazyloadToImg(galleryContainerEl) {
-  //galleryContainerEl.querySelectorAll('img')
   const lazyImages = document.querySelectorAll(".gallery__image");
   if ("loading" in HTMLImageElement.prototype) {
     lazyImages.forEach((imgEl) => {

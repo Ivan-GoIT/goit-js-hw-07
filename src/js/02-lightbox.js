@@ -6,7 +6,8 @@ const galleryContainerEl = document.querySelector(".gallery");
 galleryContainerEl.innerHTML = createGalleryMarkup(galleryItems);
 
 addAttributesForSimpleLightbox(galleryContainerEl);
-//const lightbox = new SimpleLightbox({ elements: ".gallery > li > a" });
+addLazyloadToImg();
+const lightbox = new SimpleLightbox(".gallery a", { captionDelay: 250 });
 
 function createGalleryMarkup(galleryItems) {
   return galleryItems
@@ -24,7 +25,29 @@ function createGalleryMarkup(galleryItems) {
 
 function addAttributesForSimpleLightbox(galleryEl) {
   [...galleryEl.getElementsByTagName("a")].map((el) => {
-    el.dataset.lightbox = "gallery";
-    el.dataset.title = el.getElementsByTagName("img")[0].alt;
+    const imgEl = el.getElementsByTagName("img")[0];
+    imgEl.title = imgEl.alt;
   });
 }
+
+function addLazyloadToImg(galleryContainerEl) {
+  const lazyImages = document.querySelectorAll(".gallery__image");
+  if ("loading" in HTMLImageElement.prototype) {
+    lazyImages.forEach((imgEl) => {
+      imgEl.loading = "lazy";
+    });
+    const lazyScript = document.createElement("script");
+  } else {
+    console.log("!!!!!!!!!!!!");
+    const lazyScript = document.createElement("script");
+
+    lazyScript.src =
+      "https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js";
+    lazyScript.integrity =
+      "sha512-q583ppKrCRc7N5O0n2nzUiJ+suUv7Et1JGels4bXOaMFQcamPk9HjdUknZuuFjBNs7tsMuadge5k9RzdmO+1GQ==";
+    lazyScript.crossorigin = "anonymous";
+    lazyScript.referrerpolicy = "no-referrer";
+    document.body.appendChild(lazyScript);
+  }
+}
+
